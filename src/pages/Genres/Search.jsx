@@ -9,7 +9,7 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 
 
-function Search(props) {
+function Search({ setSearchWord }) {
     return (
         <Box
             p={1}
@@ -29,6 +29,7 @@ function Search(props) {
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search for movies"
                     inputProps={{ 'aria-label': 'search google maps' }}
+                    onChange={(e) => setSearchWord(e.target.value)}
                 />
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
                 <IconButton sx={{ p: '10px', color: '#E50914' }} aria-label="directions">
