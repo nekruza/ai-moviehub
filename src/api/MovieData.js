@@ -29,6 +29,10 @@ const MovieData = () => {
         return axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`)
     }
 
+    const movieRecommendations = (id) => {
+        return axios.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API_KEY}`)
+    }
+
 
 
     return {
@@ -38,6 +42,7 @@ const MovieData = () => {
         movieEachGenre,
         movieTrending,
         movieTopRated,
+        movieRecommendations,
     }
 }
 
