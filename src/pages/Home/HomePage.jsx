@@ -17,6 +17,15 @@ function HomePage(props) {
     const { data: categories, error: errorC, isLoading: isLoadingC, status } = useQuery(['categories'], () => movieGenreList())
 
 
+    //scroll up
+    var scrollTop = function () {
+        window.scrollTo(0, 0);
+    };
+
+    React.useEffect(() => {
+        scrollTop()
+    }, [])
+
     return (
         <div style={{ marginTop: 50, background: '#000000eb' }}>
             <HomeBanner name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
@@ -26,6 +35,8 @@ function HomePage(props) {
             <HomeMovies name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
             <HomeMovies name="Popular" data={data} error={error} isLoading={isLoading} />
             <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
+            <Toolbar />
+            <Toolbar />
             <>Rating</>
             <>Kids</>
         </div>

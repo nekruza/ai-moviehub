@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom"
 import { Link } from "react-router-dom";
 import moviedata from '../../api/MovieData';
 import { useQuery } from '@tanstack/react-query'
-import { Grid, IconButton } from '@mui/material';
+import { Button, Grid, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -16,52 +16,72 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import MenuIcon from '@mui/icons-material/Menu';
 import Search from './Search';
 import '../Styles/styles.css'
+import HomeIcon from '@mui/icons-material/Home';
+import MovieIcon from '@mui/icons-material/Movie';
 
-
+const navItems = [
+    {
+        name: 'Home',
+        link: '/',
+    },
+    {
+        name: 'Categories',
+        link: '/genres/28'
+    },
+    {
+        name: 'Contact',
+        link: ''
+    }
+];
 
 const drawerWidth = 240;
 
 export default function MovieByGenre(props) {
     const location = useLocation()
-    const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const handleDrawerToggle = () => (setMobileOpen(!mobileOpen))
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+    //scroll up
+    var scrollTop = function () {
+        window.scrollTo(0, 0);
+    };
+
+    React.useEffect(() => {
+        scrollTop()
+    }, [])
 
 
     // Data
-    const [genreID, setGenreID] = React.useState(28)
-    const [movieGenreData, setMovieGenreData] = React.useState([])
-
-    const { movieGenreList, movieEachGenre } = moviedata()
-
-
-    // Using the hook
+    const { movieGenreList } = moviedata()
     const { data, error, isLoading } = useQuery(['movieGenreList'], movieGenreList);
-    const { data: eachGenre, error: eachGenreError, isLoading: eachGenreLoading, status: statusGenre } = useQuery(['movieEachGenre', genreID], () => movieEachGenre(genreID));
 
-    React.useEffect(() => {
-        statusGenre === "success" && setMovieGenreData(eachGenre.data.results)
-    }, [eachGenre, statusGenre])
-
-    if (error || eachGenreError) return <div>Request Failed</div>;
-    if (isLoading || eachGenreLoading) return <div>Loading...</div>;
+    if (error) return <div>Request Failed</div>;
+    if (isLoading) return <div>Loading...</div>;
 
     const drawer = (
         <div>
             <Toolbar />
             <List>
+                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <ListItem className="onmouse" disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <HomeIcon color="error" />
+                            </ListItemIcon>
+                            <ListItemText primary='Home' />
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
                 {data.data.genres.slice(0, 11).map((item) => (
                     <Link to={`/genres/${item.id}`} style={location.pathname == `/genres/${item.id}` ? { textDecoration: 'none', color: '#E50914' } : { textDecoration: 'none', color: 'black' }}>
-                        <ListItem className="onmouse" key={item.id} disablePadding style={{ background: location.pathname == `/genres/${item.id}` ? 'black' : 'white', borderRadius: 10 }}>
+                        <ListItem className="onmouse" key={item.id} disablePadding style={{ background: location.pathname == `/genres/${item.id}` ? 'black' : 'white', borderRadius: 10, margin: 2, maxWidth: 230 }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <InboxIcon color="error" />
+                                    <LiveTvIcon color="error" />
                                 </ListItemIcon>
                                 <ListItemText primary={item.name} />
                             </ListItemButton>
@@ -87,11 +107,20 @@ export default function MovieByGenre(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to="/" style={{ textDecoration: 'none' }}>
-                        <Typography variant="h6" noWrap component="div" style={{ color: '#E50914', fontWeight: 600 }}>
+                    <Link to={`/`} style={{ textDecoration: 'none', flexGrow: 1, }}>
+                        <Typography variant="h6" noWrap component="div" style={{ flexGrow: 1, color: '#E50914', fontWeight: 600 }}>
                             AI MovieHub
                         </Typography>
                     </Link>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {navItems.map((item) => (
+                            <Link to={item.link} style={{ textDecoration: 'none' }}>
+                                <Button key={item.name} sx={location.pathname == item.link ? { color: 'red', border: '1px solid red' } : { color: 'white' }}>
+                                    {item.name}
+                                </Button>
+                            </Link>
+                        ))}
+                    </Box>
                 </Toolbar>
             </AppBar>
 
@@ -101,7 +130,6 @@ export default function MovieByGenre(props) {
                 aria-label="mailbox folders"
             >
                 <Drawer
-                    container={container}
                     variant="temporary"
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
@@ -132,7 +160,6 @@ export default function MovieByGenre(props) {
                 sx={{ marginBottom: 20, overflowX: 'hidden', overflowY: 'hidden', width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Search />
                 <Outlet />
             </Box>
         </Box>

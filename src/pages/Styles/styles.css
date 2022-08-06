@@ -2,3 +2,8 @@
 .onmouse:hover{
     background: 'grey'
 }
+
+.onNavbar{
+    color: red;
+    border: 1px solid red
+}

@@ -13,12 +13,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import './Styles/styles.css'
+
 
 const drawerWidth = 240;
-const navItems = ['Categories', 'About', 'Contact'];
+const navItems = [
+    {
+        name: 'Home',
+        link: '/'
+    },
+    {
+        name: 'Categories',
+        link: '/genres/28'
+    },
+    {
+        name: 'Contact',
+        link: ''
+    }
+];
+
 
 function Navbar(props) {
+    const location = useLocation()
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -33,13 +50,15 @@ function Navbar(props) {
             </Typography>
             <Divider />
             <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                {navItems.map((item) =>
+                    <Link to={item.link} style={{ textDecoration: 'none' }}>
+                        <ListItem key={item.name} disablePadding sx={location.pathname == item.link ? { color: 'red', background: 'black', border: '1px solid red' } : { color: 'black' }}>
+                            <ListItemButton sx={{ textAlign: 'center' }}>
+                                <ListItemText primary={item.name} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                )}
             </List>
         </Box>
     );
@@ -71,9 +90,9 @@ function Navbar(props) {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Link to="/genres/28" >
-                                <Button key={item} sx={{ color: '#fff' }}>
-                                    {item}
+                            <Link to={item.link} style={{ textDecoration: 'none' }}>
+                                <Button key={item.name} sx={location.pathname == item.link ? { color: 'red', border: '1px solid red' } : { color: 'white' }}>
+                                    {item.name}
                                 </Button>
                             </Link>
                         ))}
