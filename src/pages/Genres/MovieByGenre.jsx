@@ -21,7 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Search from './Search';
 import '../Styles/styles.css'
 import HomeIcon from '@mui/icons-material/Home';
-import MovieIcon from '@mui/icons-material/Movie';
+import Icons from '../../Icons/Icons'
 
 const navItems = [
     {
@@ -32,10 +32,10 @@ const navItems = [
         name: 'Categories',
         link: '/genres/28'
     },
-    {
-        name: 'Contact',
-        link: ''
-    }
+    // {
+    //     name: 'Contact',
+    //     link: ''
+    // }
 ];
 
 const drawerWidth = 240;
@@ -44,6 +44,7 @@ export default function MovieByGenre(props) {
     const location = useLocation()
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const handleDrawerToggle = () => (setMobileOpen(!mobileOpen))
+    const icons = Icons()
 
     //scroll up
     var scrollTop = function () {
@@ -67,7 +68,7 @@ export default function MovieByGenre(props) {
             <Toolbar />
             <List>
                 <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <ListItem className="onmouse" disablePadding>
+                    <ListItem className="onmouse" disablePadding sx={{ display: { xs: 'flex', sm: 'none' } }}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon color="error" />
@@ -76,12 +77,14 @@ export default function MovieByGenre(props) {
                         </ListItemButton>
                     </ListItem>
                 </Link>
-                {data.data.genres.slice(0, 11).map((item) => (
+                {data.data.genres.slice(0, 11).filter(item => item.name !== 'Documentary').map((item) => (
                     <Link to={`/genres/${item.id}`} style={location.pathname == `/genres/${item.id}` ? { textDecoration: 'none', color: '#E50914' } : { textDecoration: 'none', color: 'black' }}>
                         <ListItem className="onmouse" key={item.id} disablePadding style={{ background: location.pathname == `/genres/${item.id}` ? 'black' : 'white', borderRadius: 10, margin: 2, maxWidth: 230 }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <LiveTvIcon color="error" />
+                                    {icons.map((icon) => {
+                                        return icon.name == item.name && <icon.icon color="error" />
+                                    })}
                                 </ListItemIcon>
                                 <ListItemText primary={item.name} />
                             </ListItemButton>
@@ -107,7 +110,7 @@ export default function MovieByGenre(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to={`/`} style={{ textDecoration: 'none', flexGrow: 1, }}>
+                    <Link to={`/`} style={{ textDecoration: 'none', flexGrow: 1 }}>
                         <Typography variant="h6" noWrap component="div" style={{ flexGrow: 1, color: '#E50914', fontWeight: 600 }}>
                             AI MovieHub
                         </Typography>
