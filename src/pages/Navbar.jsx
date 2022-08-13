@@ -27,10 +27,6 @@ const navItems = [
         name: 'Categories',
         link: '/genres/28'
     },
-    {
-        name: 'Contact',
-        link: ''
-    }
 ];
 
 
@@ -46,7 +42,7 @@ function Navbar(props) {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
+                AI MovieHub
             </Typography>
             <Divider />
             <List>
@@ -81,13 +77,15 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: 600 }}
-                    >
-                        AI MovieHub
-                    </Typography>
+                    <Link to={`/`} style={{ textDecoration: 'none', flexGrow: 1, }}>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: 600, color: '#E50914', }}
+                        >
+                            AI MovieHub
+                        </Typography>
+                    </Link>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
                             <Link to={item.link} style={{ textDecoration: 'none' }}>
