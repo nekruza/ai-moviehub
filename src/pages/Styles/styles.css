@@ -7,3 +7,12 @@
     color: red;
     border: 1px solid red
 }
+
+.redHover{
+    color: white !important;
+
+}
+.redHover:hover{
+    color: red !important;
+    border: 1px solid red
+}
