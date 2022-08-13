@@ -9,12 +9,13 @@ import Categories from './Categories';
 
 function HomePage(props) {
 
-    const { popularMovies, movieGenreList, movieTrending, movieTopRated } = MovieData()
+    const { popularMovies, movieGenreList, movieEachGenre, movieTrending, movieTopRated } = MovieData()
 
     const { data, error, isLoading } = useQuery(['popular'], () => popularMovies())
     const { data: trending, error: errorT, isLoading: isLoadingT } = useQuery(['trending'], () => movieTrending())
     const { data: toprated, error: errorL, isLoading: isLoadingL, } = useQuery(['toprated'], () => movieTopRated())
     const { data: categories, error: errorC, isLoading: isLoadingC, status } = useQuery(['categories'], () => movieGenreList())
+    const { data: eachGenre, error: eachGenreError, isLoading: eachGenreLoading, status: statusGenre } = useQuery(['movieEachGenre', 28], () => movieEachGenre(28));
 
 
     //scroll up
@@ -28,7 +29,7 @@ function HomePage(props) {
 
     return (
         <div style={{ marginTop: 50, background: '#000000eb' }}>
-            <HomeBanner name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
+            <HomeBanner name="Top Rated" data={eachGenre} error={eachGenreError} isLoading={eachGenreLoading} />
             <Toolbar />
             <Categories name="Genres" data={categories} error={errorC} isLoading={isLoadingC} />
             <Toolbar />
