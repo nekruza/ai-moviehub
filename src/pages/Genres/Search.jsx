@@ -20,7 +20,7 @@ function Search({ setSearchWord }) {
         >
             <Paper
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, height: 50 }}
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: { xs: 300, sm: 400 }, height: 50 }}
             >
                 <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon />
