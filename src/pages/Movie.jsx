@@ -21,13 +21,13 @@ function Movie(props) {
     const { id } = useParams()
 
     //scroll up
-    var scrollTop = function () {
-        window.scrollTo(0, 0);
-    };
+    // var scrollTop = function () {
+    //     window.scrollTo(0, 0);
+    // };
 
-    React.useEffect(() => {
-        scrollTop()
-    }, [])
+    // React.useEffect(() => {
+    //     scrollTop()
+    // }, [])
 
     // Using the hook
     const { data, error, isLoading } = useQuery(['movie', id], () => movieByID(id));
@@ -40,15 +40,16 @@ function Movie(props) {
         <>
             <Grid container sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', background: '#141414', paddingBottom: 20 }}>
                 <Toolbar />
-                <Grid item xs={12} p={0} sx={{
-                    display: 'flex', justifyContent: 'center', width: '100vw', padding: 2,
+                <Grid item xs={12} sx={{
+                    display: 'flex', justifyContent: 'center', width: '100vw', padding: { xs: 0, sm: 2 },
                     backgroundImage: `url(https://image.tmdb.org/t/p/w500/${data.data.poster_path})`,
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center'
                 }}>
                     <Grid container sx={{
                         backgroundImage: `url(https://image.tmdb.org/t/p/w500/${data.data.poster_path})`,
-                        p: 1, display: 'flex', flexDirection: 'row', width: { xs: '100%', md: '80%' },
-                        background: 'linear-gradient(to right, rgba(0,0,0, 0.9) 150px, rgba(0,0,0, 0.84) 100%)', color: 'white',
+                        p: { xs: 0, sm: 1 }, display: 'flex', flexDirection: 'row', width: { xs: '100%', md: '80%' },
+                        background: 'linear-gradient(to right, rgba(0,0,0, 0.9) 150px, rgba(0,0,0, 0.84) 100%)',
+                        color: 'white',
                         lineHeight: 1.5
                     }}>
                         <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
@@ -66,10 +67,10 @@ function Movie(props) {
                                     <strong>{data.data.original_title}</strong> ({data.data.release_date.slice(0, 4)})
                                 </Typography>
                                 <Typography variant="body1"  >
-                                    {data.data.release_date} | {data.data.status},{data.data.genres.map((item) => item.name + ', ')} | {data.data.runtime} minutes
+                                    {data.data.release_date} | {data.data.status},{data.data.genres.map((item) => item.name + ', ')}
                                 </Typography>
                                 <Button style={{ background: '#f5c518', color: 'black', fontWeight: 600, margin: "5px 15px 5px 0px" }}>IMDb: {data.data.vote_average}</Button>
-                                <Button style={{ background: 'purple', color: 'white', fontWeight: 600, margin: 5 }}>Count: {data.data.popularity}</Button>
+                                <Button style={{ background: 'purple', color: 'white', fontWeight: 600, margin: 5 }}>{data.data.runtime} minutes</Button>
                                 <h3>Overview</h3>
                                 <Typography variant="body2"  >
                                     {data.data.overview}
@@ -96,11 +97,11 @@ function Movie(props) {
                                         </Typography>
                                     </div>
                                     <div>
-                                        <h5 style={{ margin: 0 }}>
-                                            Production Companies:
+                                        <h5 style={{ margin: '0px 20px' }}>
+                                            Production Companies
                                             <Grid container style={{ display: 'flex', }}>
-                                                {data.data.production_companies.map(item =>
-                                                    <Grid item xs={12} sm={4}>
+                                                {data.data.production_companies.slice(0, 2).map(item =>
+                                                    <Grid item xs={12} sm={6}>
                                                         <CardMedia
                                                             component="img"
                                                             height="140"
@@ -127,39 +128,37 @@ function Movie(props) {
                 </Grid>
                 <Grid item xs={12} p={2} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                     <Toolbar />
-                    <Typography gutterBottom variant="h4" component="div" style={{ color: 'white', background: 'red', textAlign: 'left' }}>
+                    <Typography gutterBottom variant="h4" component="div" sx={{ color: 'white', width: { xs: '100%', sm: '80% ' }, textAlign: 'left' }}>
                         <strong>Watch Similar Movies</strong>
                     </Typography>
                     <Grid container sx={{ overflow: 'auto', width: { xs: '100%', sm: '80% ' } }}>
                         {movieRecommendationsData.data.results.slice(0, 10)
                             .map((item) => (
                                 <Grid key={item.id} item xs={6} sm={4} md={3} lg={2} p={1} >
-                                    <Card sx={{
-                                        height: 300,
-                                        // minWidth: 200,
-                                        display: 'flex',
-                                        justifyContent: 'end',
-                                        flexDirection: 'column',
-                                        backgroundImage: `url(https://image.tmdb.org/t/p/w500/${item.poster_path})`,
-                                        backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
-                                    }}>
-                                        <CardContent style={{
-                                            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 50%, ' +
-                                                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                                            color: 'white',
-                                            padding: 15
+                                    <Link to={`/movie/${item.id}`} style={{ textDecoration: 'none' }}>
+                                        <Card sx={{
+                                            height: 300,
+                                            // minWidth: 200,
+                                            display: 'flex',
+                                            justifyContent: 'end',
+                                            flexDirection: 'column',
+                                            backgroundImage: `url(https://image.tmdb.org/t/p/w500/${item.poster_path})`,
+                                            backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
                                         }}>
-                                            <Typography gutterBottom variant="h7" component="div" style={{ fontWeight: 800 }}>
-                                                {item.original_title}
-                                            </Typography>
-                                            <Typography variant="body2"  >
-                                                <strong> IMDB: {item.vote_average}</strong>
-                                            </Typography>
-                                            <Link to={`/movie/${item.id}`} style={{ textDecoration: 'none' }}>
+                                            <CardContent style={{
+                                                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 50%, ' +
+                                                    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                                                color: 'white',
+                                                padding: 15, display: 'flex', justifyContent: 'start', flexDirection: 'column', alignItems: 'flex-start'
+                                            }}>
+                                                <Typography gutterBottom variant="h7" component="div" style={{ fontWeight: 800 }}>
+                                                    {item.original_title}
+                                                </Typography>
+                                                <Button style={{ background: '#f5c518', color: 'black', fontWeight: 600, margin: "5px 5px 5px 0px", padding: 3, fontSize: 10 }}> IMDb: {item.vote_average}</Button>
                                                 <Button size="small" variant="contained" color="error">More Info</Button>
-                                            </Link>
-                                        </CardContent>
-                                    </Card>
+                                            </CardContent>
+                                        </Card>
+                                    </Link>
                                 </Grid>
                             ))}
                     </Grid>
