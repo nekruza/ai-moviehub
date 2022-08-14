@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
-import { Link, useParams } from "react-router-dom";
-import moviedata from '../../api/MovieData';
-import { useQuery } from '@tanstack/react-query'
-import { Box, Grid, IconButton, InputBase, Paper } from '@mui/material';
-import Toolbar from '@mui/material/Toolbar';
+import React from 'react';
+import { Link } from "react-router-dom";
+import { Box, Grid, Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Search from './Search';
 import useMovieStore from '../../Zustand';
 
 
