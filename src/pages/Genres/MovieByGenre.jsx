@@ -18,7 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import MenuIcon from '@mui/icons-material/Menu';
-import Search from './Search';
+import Search from '../SearchResult/Search';
 import '../Styles/styles.css'
 import HomeIcon from '@mui/icons-material/Home';
 import Icons from '../../Icons/Icons'
@@ -99,7 +99,7 @@ export default function MovieByGenre(props) {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: 'black' }}>
+            {/* <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: 'black' }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -125,7 +125,7 @@ export default function MovieByGenre(props) {
                         ))}
                     </Box>
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
 
             <Box
                 component="nav"

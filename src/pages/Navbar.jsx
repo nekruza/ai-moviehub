@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -15,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import './Styles/styles.css'
+import Search from './SearchResult/Search';
 
 
 const drawerWidth = 240;
@@ -30,14 +30,15 @@ const navItems = [
 ];
 
 
-function Navbar(props) {
+function Navbar({ window }) {
     const location = useLocation()
-    const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -59,8 +60,7 @@ function Navbar(props) {
         </Box>
     );
 
-    const container =
-        window !== undefined ? () => window().document.body : undefined;
+    const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -86,6 +86,9 @@ function Navbar(props) {
                             AI MovieHub
                         </Typography>
                     </Link>
+
+                    <Search />
+
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
                             <Link to={item.link} style={{ textDecoration: 'none' }}>

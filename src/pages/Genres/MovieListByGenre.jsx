@@ -10,8 +10,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Search from './Search';
-
+import Search2 from './FilterByName'
 
 
 
@@ -34,7 +33,7 @@ const MovieListByGenre = () => {
 
     return (
         <Grid container sx={{ overflow: 'auto' }}>
-            <Search setSearchWord={setSearchWord} />
+            <Search2 setSearchWord={setSearchWord} />
             {eachGenre.data.results
                 .filter((item, key, array) => filterList(item, array))
                 .map((item) => (

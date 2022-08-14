@@ -33,6 +33,11 @@ const MovieData = () => {
         return axios.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API_KEY}`)
     }
 
+    const movieSearch = (searchQuery) => {
+        return axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${API_KEY}`)
+    }
+
+
 
 
     return {
@@ -43,6 +48,7 @@ const MovieData = () => {
         movieTrending,
         movieTopRated,
         movieRecommendations,
+        movieSearch
     }
 }
 
