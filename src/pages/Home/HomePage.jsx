@@ -38,8 +38,6 @@ function HomePage(props) {
             <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
             <Toolbar />
             <Toolbar />
-            <>Rating</>
-            <>Kids</>
         </div>
     );
 }
