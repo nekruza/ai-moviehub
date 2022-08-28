@@ -56,8 +56,10 @@ function Search() {
                 onChange={(e) => setQuery(e.target.value)}
             />
             <Divider sx={{ height: 28, m: 0.5, color: 'white' }} orientation="vertical" />
-            <Link to="/search" style={{ textDecoration: 'none', }}> <Button style={{ color: 'white' }} onClick={() => refetch()}>
-                <SearchIcon style={{ color: 'red', }} /> Search</Button>
+            <Link to="/search" style={{ textDecoration: 'none', }}>
+                <Button style={{ color: 'white' }} onClick={() => refetch()}>
+                    <SearchIcon style={{ color: 'red', }} /> Search
+                </Button>
             </Link>
         </Paper>
     );

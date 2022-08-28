@@ -6,6 +6,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import useMovieStore from '../../Zustand';
+import image from '../Home/background_banner_movieHub/1.png'
+import EmptyState from '../../components/EmptyState';
 
 
 
@@ -23,14 +25,9 @@ const SearchResult = () => {
                     <Box
                         p={1}
                         component="main"
-                        sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 250, background: 'black', color: 'white', borderRadius: 1, width: "98.5%", margin: 1, boxSizing: 'border - box' }}
+                        sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 450, background: '#141414', color: 'white', borderRadius: 1, width: "98.5%", margin: 1, boxSizing: 'border - box' }}
                     >
-                        <Paper
-                            component="form"
-                            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: { xs: 300, sm: 400 }, height: 50 }}
-                        >
-                            <h2>See your search result below ...</h2>
-                        </Paper>
+                        <img src={image} alt="" style={{ objectFit: 'fill', width: '100%', borderRadius: 8, margin: '15px 10px', maxWidth: 800 }} />
                     </Box>
 
                     <>
@@ -68,20 +65,8 @@ const SearchResult = () => {
                     </>
                 </>
                 :
-                <Box
-                    p={1}
-                    component="main"
-                    sx={{
-                        display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 250, background: 'black', color: 'white', borderRadius: 1, width: "98.5%", margin: 1, boxSizing: 'border - box'
-                    }}
-                >
-                    <Paper
-                        component="form"
-                        sx={{ p: '2px 8px', display: 'flex', alignItems: 'center', width: { xs: 300, sm: 400 }, height: 50 }}
-                    >
-                        <h2>Oops no movies found ...</h2>
-                    </Paper>
-                </Box>
+
+                <EmptyState title="Oops no movies found :/" subtitle="Search for something else" />
             }
         </Grid>
     )
