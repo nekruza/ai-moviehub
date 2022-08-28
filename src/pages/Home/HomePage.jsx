@@ -34,8 +34,7 @@ function HomePage(props) {
     return (
         <div style={{ marginTop: 50, background: '#000000eb', }}>
             <HomeBanner name="Top Rated" data={eachGenre} error={eachGenreError} isLoading={eachGenreLoading} />
-            <Toolbar />
-            <div style={{ maxWidth: 1350, margin: 'auto' }}>
+            <div style={{ maxWidth: 1350, margin: 'auto', marginTop: 30 }}>
                 <MovingText />
                 <Toolbar />
                 <Categories name="Genres" data={categories} error={errorC} isLoading={isLoadingC} />
@@ -44,8 +43,6 @@ function HomePage(props) {
                 <HomeMovies name="Popular" data={data} error={error} isLoading={isLoading} />
                 <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
                 <img src={image} alt="" style={{ objectFit: 'fill', width: '500px', border: '3px solid white', borderRadius: 8, margin: '15px 10px' }} />
-
-                {/* <VoiceAssistantDialog /> */}
                 <Toolbar />
                 <Toolbar />
             </div>
