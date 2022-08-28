@@ -8,6 +8,7 @@ import HomeBanner from './HomeBanner';
 import Categories from './Categories';
 import VoiceAssistantDialog from './VoiceAssistantDialog';
 import image from './background_banner_movieHub/2.png'
+import MovingText from '../../components/MovingText/MovingText';
 
 
 function HomePage(props) {
@@ -35,6 +36,8 @@ function HomePage(props) {
             <HomeBanner name="Top Rated" data={eachGenre} error={eachGenreError} isLoading={eachGenreLoading} />
             <Toolbar />
             <div style={{ maxWidth: 1350, margin: 'auto' }}>
+                <MovingText />
+                <Toolbar />
                 <Categories name="Genres" data={categories} error={errorC} isLoading={isLoadingC} />
                 <Toolbar />
                 <HomeMovies name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />

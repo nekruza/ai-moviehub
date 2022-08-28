@@ -1,11 +1,5 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios';
-import { Box, Grid, Toolbar, Typography } from '@mui/material';
-import MovieData from '../../api/MovieData';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import { Box, Grid, Typography } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
@@ -42,7 +36,6 @@ const HomeBanner = ({ data, error, isLoading }) => {
             backgroundImage: data.data.results[movie].poster_path && `url(https://image.tmdb.org/t/p/w500/${data.data.results[movie].poster_path})`,
             backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center'
         }}>
-            {console.log('data', data)}
             <Grid container sx={{
                 display: 'flex',
                 justifyContent: 'space-evenly',
