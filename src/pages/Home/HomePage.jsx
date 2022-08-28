@@ -42,7 +42,7 @@ function HomePage(props) {
                 <HomeMovies name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
                 <HomeMovies name="Popular" data={data} error={error} isLoading={isLoading} />
                 <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
-                <img src={image} alt="" style={{ objectFit: 'fill', width: '500px', border: '3px solid white', borderRadius: 8, margin: '15px 10px' }} />
+                {/* <img src={image} alt="" style={{ objectFit: 'fill', width: '500px', border: '3px solid white', borderRadius: 8, margin: '15px 10px' }} /> */}
                 <Toolbar />
                 <Toolbar />
             </div>
