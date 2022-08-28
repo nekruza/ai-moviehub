@@ -50,7 +50,7 @@ function Movie(props) {
                         p: { xs: 0, sm: 1 }, display: 'flex', flexDirection: 'row', width: { xs: '100%', md: '80%' },
                         background: 'linear-gradient(to right, rgba(0,0,0, 0.9) 150px, rgba(0,0,0, 0.84) 100%)',
                         color: 'white',
-                        lineHeight: 1.5, margin: { sm: '100px' }
+                        lineHeight: 1.5, margin: { sm: '50px' }
                     }}>
                         <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
                             <CardMedia
@@ -75,8 +75,8 @@ function Movie(props) {
                                 <Typography variant="body1"  >
                                     {data.data.overview}
                                 </Typography>
-                                <Box sx={{ marginTop: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'start', }}>
-                                    <Box sx={{ marginRight: 40, display: 'flex', flexDirection: { xs: 'column', sm: 'row', marginBottom: 30 } }}>
+                                <Grid container sx={{ maxHeight: 200, marginTop: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'start', }}>
+                                    <Grid item xs={12} sm={6} sx={{ marginBottom: 30 }}>
                                         <div style={{ marginRight: 30 }}>
                                             <h3 style={{ margin: 0 }}>
                                                 Language
@@ -102,8 +102,8 @@ function Movie(props) {
                                                 ${data.data.revenue}
                                             </Typography>
                                         </div>
-                                    </Box>
-                                    <div>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
                                         <h3 style={{ margin: '0px 0px' }}>
                                             Production Companies
                                             <Grid container style={{ display: 'flex', }}>
@@ -124,8 +124,8 @@ function Movie(props) {
                                                 )}
                                             </Grid>
                                         </h3>
-                                    </div>
-                                </Box>
+                                    </Grid>
+                                </Grid>
                             </CardContent>
                             {/* <CardActions>
                                 <Button size="small" variant='contained' style={{ fontWeight: 600, background: 'red', color: 'white', margin: 6 }}>Play Trailer</Button>
@@ -170,7 +170,7 @@ function Movie(props) {
                             ))}
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         </>
     );
 }
