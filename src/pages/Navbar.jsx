@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import './Styles/styles.css'
 import Search from './SearchResult/Search';
-
+import logo from '../Icons/logo.png'
 
 const drawerWidth = 240;
 const navItems = [
@@ -78,13 +78,16 @@ function Navbar({ window }) {
                         <MenuIcon />
                     </IconButton>
                     <Link to={`/`} style={{ textDecoration: 'none', flexGrow: 1, }}>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: 600, color: '#E50914', }}
-                        >
-                            AI MovieHub
-                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <img src={logo} alt='...' width={35} height={35} />
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: 600, color: '#E50914', marginLeft: 1 }}
+                            >
+                                AI MovieHub
+                            </Typography>
+                        </Box>
                     </Link>
 
                     <Search />

@@ -11,7 +11,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-
+import logo from '../Icons/logo.png'
 
 
 
@@ -19,7 +19,7 @@ function Footer(props) {
     return (
         <Box sx={{ flexGrow: 1, background: 'black', color: 'white', padding: '20px' }} >
             <Grid container>
-                <Grid item xs={12} md={3} style={{ textAlign: 'start', color: "red" }}> <h2>AI Movie Hub</h2></Grid>
+                <Grid item xs={0} md={3}></Grid>
                 <Grid item xs={6} md={3}>
                     <List>
                         <h3 style={{ marginLeft: 15 }}>CONTACTS</h3>
@@ -54,9 +54,11 @@ function Footer(props) {
                         ))}
                     </List>
                 </Grid>
-                <Grid item xs={0} md={3}></Grid>
+                <Grid item xs={12} md={3} style={{ textAlign: 'center', color: "red" }}>
+                    <h2>AI Movie Hub</h2>
+                    <img src={logo} alt='...' width={135} height={135} />
+                </Grid>
             </Grid>
-
         </Box>
     );
 }
