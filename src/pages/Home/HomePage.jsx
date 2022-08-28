@@ -6,6 +6,9 @@ import HomeMovies from './HomeMovies';
 import MovieData from '../../api/MovieData';
 import HomeBanner from './HomeBanner';
 import Categories from './Categories';
+import VoiceAssistantDialog from './VoiceAssistantDialog';
+import image from './background_banner_movieHub/2.png'
+
 
 function HomePage(props) {
 
@@ -28,16 +31,21 @@ function HomePage(props) {
     }, [])
 
     return (
-        <div style={{ marginTop: 50, background: '#000000eb' }}>
+        <div style={{ marginTop: 50, background: '#000000eb', }}>
             <HomeBanner name="Top Rated" data={eachGenre} error={eachGenreError} isLoading={eachGenreLoading} />
             <Toolbar />
-            <Categories name="Genres" data={categories} error={errorC} isLoading={isLoadingC} />
-            <Toolbar />
-            <HomeMovies name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
-            <HomeMovies name="Popular" data={data} error={error} isLoading={isLoading} />
-            <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
-            <Toolbar />
-            <Toolbar />
+            <div style={{ maxWidth: 1350, margin: 'auto' }}>
+                <Categories name="Genres" data={categories} error={errorC} isLoading={isLoadingC} />
+                <Toolbar />
+                <HomeMovies name="Top Rated" data={toprated} error={errorL} isLoading={isLoadingL} />
+                <HomeMovies name="Popular" data={data} error={error} isLoading={isLoading} />
+                <HomeMovies name="Trending" data={trending} error={errorT} isLoading={isLoadingT} />
+                <img src={image} alt="" style={{ objectFit: 'fill', width: '500px', border: '3px solid white', borderRadius: 8, margin: '15px 10px' }} />
+
+                {/* <VoiceAssistantDialog /> */}
+                <Toolbar />
+                <Toolbar />
+            </div>
         </div>
     );
 }

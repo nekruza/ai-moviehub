@@ -106,7 +106,7 @@ const HomeBanner = ({ data, error, isLoading }) => {
                     style={{ width: 500, height: 650, objectFit: 'contain', marginRight: 100 }}
                 /> */}
             </Grid>
-        </Box >
+        </Box>
     )
 }
 
