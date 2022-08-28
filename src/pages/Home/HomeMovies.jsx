@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import MovieDialog from '../../components/MovieDialog';
 
 
 const HomeMovies = ({ name, data, error, isLoading }) => {
@@ -21,32 +22,30 @@ const HomeMovies = ({ name, data, error, isLoading }) => {
                 <Grid container wrap style={{ overflowX: 'scroll', overflowY: 'hidden', }}>
                     {data.data.results.map((item) => (
                         <Grid key={item.id} item xs={6} sm={4} md={2} p={1}>
-                            <Link to={`/movie/${item.id}`} style={{ textDecoration: 'none' }}>
-                                <Card sx={{
-                                    height: 300,
-                                    minWidth: 200,
-                                    display: 'flex',
-                                    justifyContent: 'end',
-                                    flexDirection: 'column',
-                                    backgroundImage: `url(https://image.tmdb.org/t/p/w500/${item.poster_path})`,
-                                    backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
+                            <Card sx={{
+                                height: 300,
+                                minWidth: 200,
+                                display: 'flex',
+                                justifyContent: 'end',
+                                flexDirection: 'column',
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500/${item.poster_path})`,
+                                backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
+                            }}>
+                                <CardContent style={{
+                                    background: 'linear-gradient(to top, rgba(0,0,0,0.7) 50%, ' +
+                                        'rgba(0,0,0,0.9) 70%, rgba(0,0,0,0) 100%)',
+                                    color: 'white',
+                                    padding: 15
                                 }}>
-                                    <CardContent style={{
-                                        background: 'linear-gradient(to top, rgba(0,0,0,0.7) 50%, ' +
-                                            'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                                        color: 'white',
-                                        padding: 15
-                                    }}>
-                                        <Typography gutterBottom variant="h6" bold component="div" nowrap>
-                                            {item.original_title}
-                                        </Typography>
-                                        <Typography variant="body2"  >
-                                            <strong> IMDB: {item.vote_average}</strong>
-                                        </Typography>
-                                        <Button size="small" variant='contained' style={{ fontWeight: 600, background: 'red', color: 'white', }}>More Info</Button>
-                                    </CardContent>
-                                </Card>
-                            </Link>
+                                    <h3 style={{ margin: '5px 0px' }}>
+                                        {item.original_title}
+                                    </h3>
+                                    <Typography variant="body2"  >
+                                        <Button style={{ background: '#f5c518', color: 'black', fontWeight: 600, margin: "5px 5px 5px 0px", padding: 3, fontSize: 10 }}> IMDb: {item.vote_average}</Button>
+                                    </Typography>
+                                    <MovieDialog movie={item} />
+                                </CardContent>
+                            </Card>
                         </Grid>
                     ))}
                 </Grid>

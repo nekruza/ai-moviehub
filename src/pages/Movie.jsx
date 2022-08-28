@@ -50,7 +50,7 @@ function Movie(props) {
                         p: { xs: 0, sm: 1 }, display: 'flex', flexDirection: 'row', width: { xs: '100%', md: '80%' },
                         background: 'linear-gradient(to right, rgba(0,0,0, 0.9) 150px, rgba(0,0,0, 0.84) 100%)',
                         color: 'white',
-                        lineHeight: 1.5
+                        lineHeight: 1.5, margin: { sm: '100px' }
                     }}>
                         <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
                             <CardMedia
@@ -63,7 +63,7 @@ function Movie(props) {
                         </Grid>
                         <Grid item xs={12} sm={8} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', p: 1 }}>
                             <CardContent>
-                                <Typography gutterBottom variant="h4" component="div" >
+                                <Typography gutterBottom variant="h3" component="div" >
                                     <strong>{data.data.original_title}</strong> ({data.data.release_date.slice(0, 4)})
                                 </Typography>
                                 <Typography variant="body1"  >
@@ -71,33 +71,40 @@ function Movie(props) {
                                 </Typography>
                                 <Button style={{ background: '#f5c518', color: 'black', fontWeight: 600, margin: "5px 15px 5px 0px" }}>IMDb: {data.data.vote_average}</Button>
                                 <Button style={{ background: 'purple', color: 'white', fontWeight: 600, margin: 5 }}>{data.data.runtime} minutes</Button>
-                                <h3>Overview</h3>
-                                <Typography variant="body2"  >
+                                <h2>Overview</h2>
+                                <Typography variant="body1"  >
                                     {data.data.overview}
                                 </Typography>
-                                <div style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'start', }}>
-                                    <div style={{ marginRight: 40 }}>
-                                        <h5 style={{ margin: 0 }}>
-                                            Language
-                                        </h5>
-                                        <Typography variant="body2"  >
-                                            {data.data.original_language}
-                                        </Typography>
-                                        <h5 style={{ margin: 0 }}>
-                                            Budget
-                                        </h5>
-                                        <Typography variant="body2"  >
-                                            ${data.data.budget}
-                                        </Typography>
-                                        <h5 style={{ margin: 0 }}>
-                                            Revenue
-                                        </h5>
-                                        <Typography variant="body2"  >
-                                            ${data.data.revenue}
-                                        </Typography>
-                                    </div>
+                                <Box sx={{ marginTop: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'start', }}>
+                                    <Box sx={{ marginRight: 40, display: 'flex', flexDirection: { xs: 'column', sm: 'row', marginBottom: 30 } }}>
+                                        <div style={{ marginRight: 30 }}>
+                                            <h3 style={{ margin: 0 }}>
+                                                Language
+                                            </h3>
+                                            <Typography variant="body2"  >
+                                                {/* {data.data.original_language} */}
+                                                English
+                                            </Typography>
+                                        </div>
+                                        <div style={{ marginRight: 30 }}>
+                                            <h3 style={{ margin: 0 }}>
+                                                Budget
+                                            </h3>
+                                            <Typography variant="body2"  >
+                                                ${data.data.budget}
+                                            </Typography>
+                                        </div>
+                                        <div style={{ marginRight: 30 }}>
+                                            <h3 style={{ margin: 0 }}>
+                                                Revenue
+                                            </h3>
+                                            <Typography variant="body2"  >
+                                                ${data.data.revenue}
+                                            </Typography>
+                                        </div>
+                                    </Box>
                                     <div>
-                                        <h5 style={{ margin: '0px 20px' }}>
+                                        <h3 style={{ margin: '0px 0px' }}>
                                             Production Companies
                                             <Grid container style={{ display: 'flex', }}>
                                                 {data.data.production_companies.slice(0, 2).map(item =>
@@ -116,13 +123,13 @@ function Movie(props) {
                                                     </Grid>
                                                 )}
                                             </Grid>
-                                        </h5>
+                                        </h3>
                                     </div>
-                                </div>
+                                </Box>
                             </CardContent>
-                            <CardActions>
+                            {/* <CardActions>
                                 <Button size="small" variant='contained' style={{ fontWeight: 600, background: 'red', color: 'white', margin: 6 }}>Play Trailer</Button>
-                            </CardActions>
+                            </CardActions> */}
                         </Grid>
                     </Grid>
                 </Grid>
