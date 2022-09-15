@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import MovieData from '../api/MovieData';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import axios from 'axios';
-import { Grid, Toolbar } from '@mui/material';
+import { Grid, IconButton, Toolbar } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,28 +13,46 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import MovieListByGenre from './Genres/MovieListByGenre';
 import { Link } from 'react-router-dom';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import LoadingCircle from '../components/LoadingCircle';
+import { useQueryClient } from '@tanstack/react-query'
 
 
 function Movie(props) {
-    const { movieByID, movieRecommendations } = MovieData()
+    const { movieByID, movieRecommendations, addToFavourite, addToWatchlist } = MovieData()
     const { id } = useParams()
+    const queryClient = useQueryClient();
 
-    //scroll up
-    // var scrollTop = function () {
-    //     window.scrollTo(0, 0);
-    // };
+    // scroll up
+    var scrollTop = function () {
+        window.scrollTo(0, 0);
+    };
 
-    // React.useEffect(() => {
-    //     scrollTop()
-    // }, [])
+    React.useEffect(() => {
+        scrollTop()
+    }, [])
 
     // Using the hook
     const { data, error, isLoading } = useQuery(['movie', id], () => movieByID(id));
     const { data: movieRecommendationsData, error: movieRecommendationsError, isLoading: movieRecommendationsLoading } = useQuery(['recommendations', id], () => movieRecommendations(id));
 
+    // Create new Class
+    const { mutate, isLoading: isLoadingMutate, isSuccess: isSuccessFavorite } = useMutation(
+        (list) => addToFavourite(list)
+    );
+
+    const { mutate: addToWachtMutate, isLoading: addToWachtLoading, isSuccess: isSuccessWatchlist } = useMutation(
+        (list) => addToWatchlist(list)
+    );
+
+    React.useEffect(() => {
+        queryClient.invalidateQueries("favorite");
+        queryClient.invalidateQueries("watchlist");
+    }, [isSuccessFavorite, isSuccessWatchlist])
+
     if (error || movieRecommendationsError) return <div>Request Failed</div>;
-    if (isLoading || movieRecommendationsLoading) return <div>Loading...</div>;
+    if (isLoading || movieRecommendationsLoading || isLoadingMutate || addToWachtLoading) return <LoadingCircle />;
 
     return (
         <>
@@ -75,9 +93,31 @@ function Movie(props) {
                                 <Typography variant="body1"  >
                                     {data.data.overview}
                                 </Typography>
+                                <Box>
+                                    <IconButton>
+                                        <FavoriteBorderIcon
+                                            style={{ color: 'red', margin: 10, width: 35, height: 35 }}
+                                            onClick={() => mutate({
+                                                "media_type": "movie",
+                                                "media_id": id,
+                                                "favorite": true
+                                            })}
+                                        />
+                                    </IconButton>
+                                    <IconButton>
+                                        <AddToQueueIcon
+                                            style={{ color: 'red', margin: 10, width: 35, height: 35 }}
+                                            onClick={() => addToWachtMutate({
+                                                "media_type": "movie",
+                                                "media_id": id,
+                                                "watchlist": true
+                                            })}
+                                        />
+                                    </IconButton>
+                                </Box>
                                 <Grid container sx={{ maxHeight: 200, marginTop: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'start', }}>
                                     <Grid item xs={12} sm={6} sx={{ marginBottom: 30 }}>
-                                        <div style={{ marginRight: 30 }}>
+                                        <div style={{ marginRight: 30, marginBottom: 7 }}>
                                             <h3 style={{ margin: 0 }}>
                                                 Language
                                             </h3>
@@ -86,7 +126,7 @@ function Movie(props) {
                                                 English
                                             </Typography>
                                         </div>
-                                        <div style={{ marginRight: 30 }}>
+                                        <div style={{ marginRight: 30, marginBottom: 7 }}>
                                             <h3 style={{ margin: 0 }}>
                                                 Budget
                                             </h3>
@@ -94,7 +134,7 @@ function Movie(props) {
                                                 ${data.data.budget}
                                             </Typography>
                                         </div>
-                                        <div style={{ marginRight: 30 }}>
+                                        <div style={{ marginRight: 30, marginBottom: 7 }}>
                                             <h3 style={{ margin: 0 }}>
                                                 Revenue
                                             </h3>
@@ -170,7 +210,7 @@ function Movie(props) {
                             ))}
                     </Grid>
                 </Grid>
-            </Grid >
+            </Grid>
         </>
     );
 }

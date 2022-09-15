@@ -1,16 +1,30 @@
 import React from 'react';
-import { Box, Grid, Toolbar, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import MovieDialog from '../../components/MovieDialog';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MovieData from '../../api/MovieData';
+import { useMutation } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 
 const HomeMovies = ({ name, data, error, isLoading }) => {
+    const { addToFavourite } = MovieData()
+    const queryClient = useQueryClient();
+
+    const { mutate, isLoading: isLoadingMutate, isSuccess: isSuccessMutate } = useMutation(
+        (list) => addToFavourite(list)
+    );
+
+    React.useEffect(() => {
+        queryClient.invalidateQueries("favorite");
+    }, [isSuccessMutate])
 
     if (error) return <div>Request Failed</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading || isLoadingMutate) return <CircularProgress />;
 
 
     return (
@@ -37,13 +51,25 @@ const HomeMovies = ({ name, data, error, isLoading }) => {
                                     color: 'white',
                                     padding: 15
                                 }}>
-                                    <h3 style={{ margin: '5px 0px' }}>
+                                    {/* <h3 style={{ margin: '5px 0px' }}>
                                         {item.original_title}
                                     </h3>
                                     <Typography variant="body2"  >
                                         <Button style={{ background: '#f5c518', color: 'black', fontWeight: 600, margin: "5px 5px 5px 0px", padding: 3, fontSize: 10 }}> IMDb: {item.vote_average}</Button>
-                                    </Typography>
-                                    <MovieDialog movie={item} />
+                                    </Typography> */}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <MovieDialog movie={item} />
+                                        <IconButton
+                                            style={{ padding: 0 }}
+                                            onClick={() => mutate({
+                                                "media_type": "movie",
+                                                "media_id": item.id,
+                                                "favorite": true
+                                            })}
+                                        >
+                                            <FavoriteBorderIcon style={{ color: 'white', height: 30, width: 30, color: 'red' }} />
+                                        </IconButton>
+                                    </div>
                                 </CardContent>
                             </Card>
                         </Grid>

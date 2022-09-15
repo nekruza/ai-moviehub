@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useQuery } from '@tanstack/react-query'
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import AppBar from '@mui/material/AppBar';
@@ -22,7 +23,8 @@ import { Avatar, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
-
+import useMovieStore from '../Zustand';
+import MovieData from '../api/MovieData';
 
 const drawerWidth = 240;
 const navItems = [
@@ -40,7 +42,27 @@ const navItems = [
 function Navbar({ window, user, fetchToken }) {
     const location = useLocation()
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [favMovLength, setfavMovLength] = React.useState(0);
+    const [watchListLenght, setWatchListLenght] = React.useState(0);
 
+    const { getFavourite, getWatchlist } = MovieData()
+
+    const { data, status } = useQuery(['favorite'], () => getFavourite())
+
+    const { data: watchlistData, status: watchlistStatus } = useQuery(['watchlist'], () => getWatchlist())
+
+    const fMvieLength = status === 'success' && data.data.results.length
+    const wMovieLength = watchlistStatus === 'success' && watchlistData.data.results.length
+
+    React.useEffect(() => {
+        setfavMovLength(fMvieLength)
+    }, [data, status])
+
+    console.log('data', fMvieLength)
+
+    React.useEffect(() => {
+        setWatchListLenght(wMovieLength)
+    }, [watchlistData, watchlistStatus])
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -113,7 +135,29 @@ function Navbar({ window, user, fetchToken }) {
                             Login
                         </Button>
                         :
-                        <AccountMenu user={user} />
+                        <>
+                            <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                                <Link to={'/favorite'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <Tooltip title="Favorite Movies">
+                                        <ListItemIcon style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <Badge badgeContent={favMovLength} color="error" >
+                                                <FavoriteBorderIcon style={{ color: 'white' }} />
+                                            </Badge>
+                                        </ListItemIcon>
+                                    </Tooltip>
+                                </Link>
+                                <Link to={'/watchlist'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <Tooltip title="Watchlist">
+                                        <ListItemIcon style={{ display: 'flex', justifyContent: 'center' }} >
+                                            <Badge badgeContent={watchListLenght} color="error">
+                                                <AddToQueueIcon style={{ color: 'white' }} />
+                                            </Badge>
+                                        </ListItemIcon>
+                                    </Tooltip>
+                                </Link>
+                            </Box>
+                            <AccountMenu user={user} />
+                        </>
                     }
                 </Toolbar>
             </AppBar>
@@ -145,7 +189,7 @@ export default Navbar;
 
 
 
-function AccountMenu({ user }) {
+function AccountMenu({ user, history }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -182,7 +226,7 @@ function AccountMenu({ user }) {
     return (
         <React.Fragment>
             <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-                <Tooltip title="Account settings">
+                <Tooltip title="Account">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -242,18 +286,22 @@ function AccountMenu({ user }) {
                 transformOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-                <MenuItem>
-                    <ListItemIcon>
-                        <FavoriteBorderIcon fontSize="small" />
-                    </ListItemIcon>
-                    Favourites
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <AddToQueueIcon fontSize="small" />
-                    </ListItemIcon>
-                    Watching List
-                </MenuItem>
+                <Link to={'/favorite'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <FavoriteBorderIcon fontSize="small" />
+                        </ListItemIcon>
+                        Favourites
+                    </MenuItem>
+                </Link>
+                <Link to={'/watchlist'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <AddToQueueIcon fontSize="small" />
+                        </ListItemIcon>
+                        Watching List
+                    </MenuItem>
+                </Link>
                 <Divider />
                 <MenuItem onClick={logout}>
                     <ListItemIcon>

@@ -1,9 +1,12 @@
 import axios from 'axios';
+import useMovieStore from '../Zustand';
 
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
 const MovieData = () => {
+    const { user } = useMovieStore()
+
 
     const popularMovies = () => {
         return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
@@ -37,7 +40,21 @@ const MovieData = () => {
         return axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${API_KEY}`)
     }
 
+    const addToFavourite = (list) => {
+        return axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${API_KEY}&session_id=${localStorage.getItem('session_id')}`, list)
+    }
 
+    const getFavourite = () => {
+        return axios.get(`https://api.themoviedb.org/3/account/${user.id}/favorite/movies?api_key=${API_KEY}&session_id=${localStorage.getItem('session_id')}`)
+    }
+
+    const addToWatchlist = (list) => {
+        return axios.post(`https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${API_KEY}&session_id=${localStorage.getItem('session_id')}`, list)
+    }
+
+    const getWatchlist = () => {
+        return axios.get(`https://api.themoviedb.org/3/account/${user.id}/watchlist/movies?api_key=${API_KEY}&session_id=${localStorage.getItem('session_id')}`)
+    }
 
 
     return {
@@ -48,7 +65,11 @@ const MovieData = () => {
         movieTrending,
         movieTopRated,
         movieRecommendations,
-        movieSearch
+        movieSearch,
+        addToFavourite,
+        addToWatchlist,
+        getFavourite,
+        getWatchlist
     }
 }
 

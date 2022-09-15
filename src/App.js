@@ -15,6 +15,8 @@ import Alan from "./pages/Alan";
 import SearchResult from "./pages/SearchResult/SearchResult";
 import { fetchToken, createSessionId, moviesApi } from "./auth/auth";
 import useMovieStore from "./Zustand";
+import FavouriteList from "./pages/Favourite/Favourite";
+import WatchList from "./pages/Favourite/Watchlist";
 
 const queryClient = new QueryClient()
 
@@ -56,8 +58,10 @@ function App() {
       <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} user={user} fetchToken={fetchToken} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<SearchResult />} />
         <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/favorite" element={<FavouriteList />} />
+        <Route path="/search" element={<SearchResult />} />
+        <Route path="/watchlist" element={<WatchList />} />
         <Route path="genres" element={<MovieByGenre />} >
           <Route path=":id" element={<MovieListByGenre />} />
         </Route>
