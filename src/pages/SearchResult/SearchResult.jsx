@@ -25,7 +25,7 @@ const SearchResult = () => {
                     <Box
                         p={1}
                         component="main"
-                        sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 450, background: '#141414', color: 'white', borderRadius: 1, width: "98.5%", margin: 1, boxSizing: 'border - box' }}
+                        sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 300, background: '#141414', overflow: 'auto', overflowY: 'hidden', color: 'white', borderRadius: 1, width: "98.5%", margin: 1, boxSizing: 'border - box' }}
                     >
                         <img src={image} alt="" style={{ objectFit: 'fill', width: '100%', borderRadius: 8, margin: '15px 10px', maxWidth: 800 }} />
                     </Box>
