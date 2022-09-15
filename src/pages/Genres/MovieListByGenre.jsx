@@ -3,14 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import moviedata from '../../api/MovieData';
 import { useQuery } from '@tanstack/react-query'
 import { Grid } from '@mui/material';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Search2 from './FilterByName'
+import LoadingCircle from '../../components/LoadingCircle';
 
 
 
@@ -29,7 +27,7 @@ const MovieListByGenre = () => {
     }
 
     if (eachGenreError) return <div>Request Failed</div>;
-    if (eachGenreLoading) return <div>Loading...</div>;
+    if (eachGenreLoading) return <LoadingCircle />;
 
     return (
         <Grid container sx={{ overflow: 'auto' }}>

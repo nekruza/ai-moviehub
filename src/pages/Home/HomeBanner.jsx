@@ -4,6 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import AdbIcon from '@mui/icons-material/Adb';
+import LoadingCircle from '../../components/LoadingCircle';
 
 const HomeBanner = ({ data, error, isLoading }) => {
 
@@ -26,7 +27,7 @@ const HomeBanner = ({ data, error, isLoading }) => {
     }, [movie])
 
     if (error) return <div>Request Failed</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <LoadingCircle />;
 
 
     return (
