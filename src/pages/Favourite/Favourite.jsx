@@ -29,11 +29,9 @@ const FavouriteList = () => {
 
 
     return (
-        <Box sx={{ maxWidth: '90%', margin: '100px auto 10px' }}>
+        <Box sx={{ maxWidth: 1350, margin: '100px auto 10px' }}>
             <h2 style={{ padding: 10 }}>Favorite Movies</h2>
             <Grid container sx={{ overflow: 'auto', height: '80vh' }}>
-
-                {console.log('data', data)}
                 {data.data.results.length > 0 ?
                     <>
                         {data.data.results

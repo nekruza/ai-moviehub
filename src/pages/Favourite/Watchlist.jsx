@@ -31,7 +31,7 @@ const WatchList = () => {
 
 
     return (
-        <Box sx={{ maxWidth: '90%', margin: '100px auto 10px' }}>
+        <Box sx={{ maxWidth: 1350, margin: '100px auto 10px' }}>
             <h2 style={{ padding: 10 }}>Watchlist</h2>
             <Grid container sx={{ overflow: 'auto', height: '80vh' }}>
 
