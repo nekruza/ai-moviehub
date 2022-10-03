@@ -17,7 +17,7 @@ import { fetchToken, createSessionId, moviesApi } from "./auth/auth";
 import useMovieStore from "./Zustand";
 import FavouriteList from "./pages/Favourite/Favourite";
 import WatchList from "./pages/Favourite/Watchlist";
-
+import EmptyState from './components/EmptyState.jsx'
 const queryClient = new QueryClient()
 
 
@@ -54,7 +54,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Alan />
-      {console.log('user', user)}
       <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} user={user} fetchToken={fetchToken} />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -65,6 +64,7 @@ function App() {
         <Route path="genres" element={<MovieByGenre />} >
           <Route path=":id" element={<MovieListByGenre />} />
         </Route>
+        <Route path="*" element={<div style={{ height: '70vh', width: '100vw' }}><EmptyState title="Page not found :/" /></div>} />
       </Routes>
       <Footer />
     </QueryClientProvider>
